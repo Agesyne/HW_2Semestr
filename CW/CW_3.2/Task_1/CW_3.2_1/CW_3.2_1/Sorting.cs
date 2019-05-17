@@ -15,6 +15,11 @@ namespace Sorting
         /// <returns></returns>
         public static bool IsSorted(List<T> input, IComparer<T> comparer)
         {
+            if (input == null || comparer == null)
+            {
+                throw new NullReferenceException();
+            }
+
             for (var i = 0; i < input.Count - 1; ++i)
             {
                 if (comparer.Compare(input[i], input[i + 1]) == 1)
@@ -33,11 +38,7 @@ namespace Sorting
         /// <returns></returns>
         public static List<T> Sort(List<T> input, IComparer<T> comparer)
         {
-            if (input == null)
-            {
-                throw new NullReferenceException();
-            }
-            if (comparer == null)
+            if (input == null || comparer == null)
             {
                 throw new NullReferenceException();
             }
@@ -64,6 +65,11 @@ namespace Sorting
         /// <param name="input">The printing list</param>
         static void PrintList(List<T> input)
         {
+            if (input == null)
+            {
+                throw new NullReferenceException();
+            }
+
             foreach (var i in input)
             {
                 Console.Write($"{i} ");
