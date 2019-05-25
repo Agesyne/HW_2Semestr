@@ -4,3 +4,5 @@ obj/
 TestResults/
 packages/
 *.config
+!App.config
+!packages.config
