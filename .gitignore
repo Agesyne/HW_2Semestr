@@ -3,4 +3,6 @@
 **/.vs
 **/TestResults
 **/packages
-**/*.config
+*.config
+!App.config
+!packages.config
