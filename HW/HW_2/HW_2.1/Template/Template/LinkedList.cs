@@ -131,7 +131,16 @@ namespace ClassList
         /// <param name="index">Index of the element value to be gotten</param>
         public int GetNthValue(int index)
         {
-            return FindElement(index).Value;
+            var currentElement = FindElement(index);
+            if (currentElement == null)
+            {
+                return head.Value;
+            }
+            if (currentElement.Next == null)
+            {
+                throw new DataMisalignedException();
+            }
+            return currentElement.Next.Value;
         }
 
         /// <summary>
@@ -141,7 +150,19 @@ namespace ClassList
         /// <param name="index">Index of the element value to be setted</param>
         public void SetNthValue(int value, int index)
         {
-            FindElement(index).Value = value ;
+            var currentElement = FindElement(index);
+            if (currentElement == null)
+            {
+                head.Value = value;
+            }
+            else
+            {
+                if (currentElement.Next == null)
+                {
+                    throw new DataMisalignedException();
+                }
+                currentElement.Next.Value = value;
+            }
         }
 
     }

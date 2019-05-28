@@ -173,11 +173,11 @@ namespace Tests
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.Add(0, 2));
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.Add(0, 18));
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.Delete(-1));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.Delete(1));
+            Assert.ThrowsException<DataMisalignedException>(() => newList.Delete(1));
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.GetNthValue(-1));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.GetNthValue(1));
+            Assert.ThrowsException<DataMisalignedException>(() => newList.GetNthValue(1));
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.SetNthValue(32, -1));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => newList.SetNthValue(23, 1));
+            Assert.ThrowsException<DataMisalignedException>(() => newList.SetNthValue(23, 1));
         }
 
     }
