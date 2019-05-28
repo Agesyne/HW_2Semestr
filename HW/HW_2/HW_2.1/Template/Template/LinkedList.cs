@@ -26,10 +26,38 @@ namespace ClassList
         /// The first element
         /// </summary>
         private ListElement head = null;
+
         /// <summary>
         /// Number of element in list
         /// </summary>
         public int Count { get; protected set; } = 0;
+
+        /// <summary>
+        /// Get element of given index
+        /// </summary>
+        /// <param name="index">The given index</param>
+        /// <returns>The element on given index</returns>
+        private ListElement FindElement(int index)
+        {
+            if (index < 0 || index > Count)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var currentElement = head;
+            if (index == 0)
+            {
+                currentElement = null;
+            }
+            else
+            {
+                for (var i = 1; i < index; ++i)
+                {
+                    currentElement = currentElement.Next;
+                }
+            }
+            return currentElement;
+        }
 
         /// <summary>
         /// Add new element after given one
@@ -50,6 +78,7 @@ namespace ClassList
                 prev.Next = newElement;
             }
         }
+        
         /// <summary>
         /// Add new element in list
         /// </summary>
@@ -57,24 +86,7 @@ namespace ClassList
         /// <param name="index">Index of the place element to be added</param>
         public void Add(int value, int index)
         {
-            if (index < 0 || index > Count)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            var currentElement = head;
-            if (index == 0)
-            {
-                currentElement = null;
-            }
-            else
-            {
-                for (var i = 1; i < index; ++i)
-                {
-                    currentElement = currentElement.Next;
-                }
-            }
-            AddElementArterGiven(value, currentElement);
+            AddElementArterGiven(value, FindElement(index));
             ++Count;
         }
 
@@ -97,61 +109,29 @@ namespace ClassList
                 prev.Next = prev.Next.Next;
             }
         }
+        
         /// <summary>
         /// Delete element in list
         /// </summary>
         /// <param name="index">Index of the place element to be deleted</param>
         public void Delete(int index)
         {
-            if (index < 0 || index >= Count)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            var currentElement = head;
-            if (index == 0)
-            {
-                currentElement = null;
-            }
-            else
-            {
-                for (var i = 1; i < index; ++i)
-                {
-                    currentElement = currentElement.Next;
-                }
-            }
-            DeleteElementAfterGiven(currentElement);
+            DeleteElementAfterGiven(FindElement(index));
             --Count;
         }
 
         /// <summary>
         /// Check if list is empty
         /// </summary>
-        /// <returns></returns>
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
+        public bool IsEmpty() => Count == 0;
 
         /// <summary>
         /// Get value of n'th list element
         /// </summary>
         /// <param name="index">Index of the element value to be gotten</param>
-        /// <returns></returns>
         public int GetNthValue(int index)
         {
-            if (index < 0 || index >= Count)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            var currentElement = head;
-            for (var i = 0; i < index; ++i)
-            {
-                currentElement = currentElement.Next;
-            }
-
-            return currentElement.Value;
+            return FindElement(index).Value;
         }
 
         /// <summary>
@@ -161,18 +141,7 @@ namespace ClassList
         /// <param name="index">Index of the element value to be setted</param>
         public void SetNthValue(int value, int index)
         {
-            if (index < 0 || index >= Count)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            var currentElement = head;
-            for (var i = 0; i < index; ++i)
-            {
-                currentElement = currentElement.Next;
-            }
-
-            currentElement.Value = value ;
+            FindElement(index).Value = value ;
         }
 
     }
