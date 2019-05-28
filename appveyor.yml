@@ -1,0 +1,10 @@
+image: Visual Studio 2017
+
+before_build:
+  - nuget restore Template/Template.sln
+
+build:
+  project: Template/Template.sln
+
+test_script:
+  - dotnet test Template/Template.sln
