@@ -20,7 +20,7 @@ namespace TestsForFibonacci
             
             for (var i = 0; i < answers.Length; ++i)
             {
-                Assert.IsTrue(MathFibonacci.Program.GetNthFibonacciNumber(source[i]) == answers[i]);
+                Assert.AreEqual(MathFibonacci.Program.GetNthFibonacciNumber(source[i]), answers[i]);
             }
             for (var i = answers.Length; i < source.Length; ++i)
             {
