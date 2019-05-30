@@ -29,13 +29,20 @@ namespace Tests
         [TestMethod]
         public void TestAddMethod()
         {
-            var map = new HashMap();
+            var map1 = new HashMap();
+            var map2 = new HashMap(new HashFunctionByMultiplyes());
 
-            map.Add(0);
-            map.Add(4);
-            map.Add(3);
-            map.Add(1);
-            map.Add(2);
+            map1.Add(0);
+            map1.Add(4);
+            map1.Add(3);
+            map1.Add(1);
+            map1.Add(2);
+
+            map2.Add(0);
+            map2.Add(4);
+            map2.Add(3);
+            map2.Add(1);
+            map2.Add(2);
         }
 
         /// <summary>
@@ -44,21 +51,32 @@ namespace Tests
         [TestMethod]
         public void TestDeleteMethod()
         {
-            var map = new HashMap();
-            AddSomeValues(map);
+            var map1 = new HashMap();
+            var map2 = new HashMap(new HashFunctionByMultiplyes());
+            AddSomeValues(map1);
+            AddSomeValues(map2);
 
-            map.Delete(4);
-            map.Delete(1);
-            map.Delete(0);
+            map1.Delete(4);
+            map1.Delete(1);
+            map1.Delete(0);
+
+            map2.Delete(4);
+            map2.Delete(1);
+            map2.Delete(0);
 
             int[] values = { 2, 3 };
             foreach (var i in values)
             {
-                Assert.IsTrue(map.Exist(i));
+                Assert.IsTrue(map1.Exist(i));
+                Assert.IsTrue(map2.Exist(i));
             }
-            Assert.IsFalse(map.Exist(0));
-            Assert.IsFalse(map.Exist(1));
-            Assert.IsFalse(map.Exist(4));
+            Assert.IsFalse(map1.Exist(0));
+            Assert.IsFalse(map1.Exist(1));
+            Assert.IsFalse(map1.Exist(4));
+
+            Assert.IsFalse(map2.Exist(0));
+            Assert.IsFalse(map2.Exist(1));
+            Assert.IsFalse(map2.Exist(4));
         }
 
         /// <summary>
@@ -67,18 +85,22 @@ namespace Tests
         [TestMethod]
         public void TestExistMethod()
         {
-            var map = new HashMap();
-            AddSomeValues(map);
+            var map1 = new HashMap();
+            var map2 = new HashMap(new HashFunctionByMultiplyes());
+            AddSomeValues(map1);
+            AddSomeValues(map2);
 
             int[] valuesIn = { 0, 1, 2, 3, 4 };
             int[] valuesOff = { -1, 5, -100, 50 };
             foreach (var i in valuesIn)
             {
-                Assert.IsTrue(map.Exist(i));
+                Assert.IsTrue(map1.Exist(i));
+                Assert.IsTrue(map2.Exist(i));
             }
             foreach (var i in valuesOff)
             {
-                Assert.IsFalse(map.Exist(i));
+                Assert.IsFalse(map1.Exist(i));
+                Assert.IsFalse(map2.Exist(i));
             }
         }
 
@@ -88,13 +110,20 @@ namespace Tests
         [TestMethod]
         public void TestExceptions()
         {
-            var map = new HashMap();
-            AddSomeValues(map);
+            var map1 = new HashMap();
+            var map2 = new HashMap(new HashFunctionByMultiplyes());
+            AddSomeValues(map1);
+            AddSomeValues(map2);
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map.Delete(-1));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map.Delete(-10));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map.Delete(5));
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map.Delete(10));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map1.Delete(-1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map1.Delete(-10));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map1.Delete(5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map1.Delete(10));
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map2.Delete(-1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map2.Delete(-10));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map2.Delete(5));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => map2.Delete(10));
         }
 
     }
