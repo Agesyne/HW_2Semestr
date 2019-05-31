@@ -10,6 +10,14 @@ namespace Tests
     [TestClass]
     public class TestHashTable
     {
+        private HashMap map = null;
+
+        [TestInitialize()]
+        public void Setup()
+        {
+            map = new HashMap();
+        }
+
         /// <summary>
         /// Add some predefined values
         /// </summary>
@@ -29,8 +37,6 @@ namespace Tests
         [TestMethod]
         public void TestAddMethod()
         {
-            var map = new HashMap();
-
             map.Add(0);
             map.Add(4);
             map.Add(3);
@@ -70,7 +76,6 @@ namespace Tests
         [TestMethod]
         public void TestDeleteMethod()
         {
-            var map = new HashMap();
             AddSomeValues(map);
 
             map.Delete(4);
@@ -93,7 +98,6 @@ namespace Tests
         [TestMethod]
         public void TestExistMethod()
         {
-            var map = new HashMap();
             AddSomeValues(map);
 
             int[] valuesIn = { 0, 1, 2, 3, 4 };
@@ -114,7 +118,6 @@ namespace Tests
         [TestMethod]
         public void TestExceptions()
         {
-            var map = new HashMap();
             AddSomeValues(map);
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => map.Delete(-1));
