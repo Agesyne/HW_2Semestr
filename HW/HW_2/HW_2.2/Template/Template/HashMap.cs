@@ -43,10 +43,10 @@ namespace Structures
         /// <summary>
         /// Check if resize needs
         /// </summary>
-        private void MbResize()
+        private void MaybeResize()
         {
             int elementsNumber = 0;
-            foreach(var i in map)
+            foreach (var i in map)
             {
                 elementsNumber += i.Count;
             }
@@ -65,7 +65,7 @@ namespace Structures
         {
             int key = GetHash(value, map.Length);
             map[key].Add(value, 0);
-            MbResize();
+            MaybeResize();
         }
 
         /// <summary>
