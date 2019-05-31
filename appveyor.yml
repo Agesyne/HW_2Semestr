@@ -1,10 +1,10 @@
 image: Visual Studio 2017
 
 before_build:
-  - nuget restore Template/Template.sln
+  - nuget restore CW/CW_4.1/Task_1/Template/Template.sln
 
 build:
-  project: Template/Template.sln
+  project: CW/CW_4.1/Task_1/Template/Template.sln
 
 test_script:
-  - dotnet test Template/Template.sln
+  - dotnet test CW/CW_4.1/Task_1/Template/Template.sln
