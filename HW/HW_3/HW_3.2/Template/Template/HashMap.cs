@@ -23,7 +23,7 @@ namespace Structures
         /// <param name="value">The adding value</param>
         public void Add(int value)
         {
-            int key = HashCode.GetHash(value, map.Length);
+            int key = (int)HashCode.GetHash(value, map.Length) % map.Length;
             map[key].Add(value, 0);
         }
 
@@ -33,7 +33,7 @@ namespace Structures
         /// <param name="value">The deleting value</param>
         public void Delete(int value)
         {
-            int key = HashCode.GetHash(value, map.Length);
+            int key = (int)HashCode.GetHash(value, map.Length) % map.Length;
             int cellLength = map[key].Count;
             for (var i = 0; i < cellLength; ++i)
             {
@@ -53,7 +53,7 @@ namespace Structures
         /// <returns></returns>
         public bool Exist(int value)
         {
-            int key = HashCode.GetHash(value, map.Length);
+            int key = (int)HashCode.GetHash(value, map.Length) % map.Length;
             int cellLength = map[key].Count;
             for (var i = 0; i < cellLength; ++i)
             {

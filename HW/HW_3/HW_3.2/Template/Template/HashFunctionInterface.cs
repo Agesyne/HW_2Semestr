@@ -10,6 +10,6 @@
         /// </summary>
         /// <param name="value">The given value</param>
         /// <param name="cellNumbers">The maximum output</param>
-        int GetHash(int value, int cellNumbers);
+        uint GetHash(int value, int cellNumbers);
     }
 }

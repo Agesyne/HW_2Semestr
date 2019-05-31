@@ -5,22 +5,6 @@ namespace Structures
     /// <summary>
     /// Some hash method
     /// </summary>
-    public class HashFunctionByRestDividing : HashFunction
-    {
-        /// <summary>
-        /// Get hashCode by dividing with rest
-        /// </summary>
-        /// <param name="value">The given value</param>
-        /// <param name="cellNumbers">Maximum output number</param>
-        public int GetHash(int value, int cellNumbers)
-        {
-            return Math.Abs(value) % cellNumbers;
-        }
-    }
-
-    /// <summary>
-    /// Some hash method
-    /// </summary>
     public class HashFunctionByMultiplyes : HashFunction
     {
         /// <summary>
@@ -28,7 +12,7 @@ namespace Structures
         /// </summary>
         /// <param name="value">The given value</param>
         /// <param name="cellNumbers">Maximum output number</param>
-        public int GetHash(int value, int cellNumbers)
+        public uint GetHash(int value, int cellNumbers)
         {
             int result = 0;
             while (value > 0)
@@ -36,7 +20,7 @@ namespace Structures
                 result += value * 10 % cellNumbers;
                 value /= 10;
             }
-            return result % cellNumbers;
+            return Convert.ToUInt32(result % cellNumbers);
         }
     }
 }
