@@ -6,7 +6,7 @@ namespace StructureFunctions
     /// <summary>
     /// Some functions with list
     /// </summary>
-    public class ListFunctions
+    public static class ListFunctions
     {
         /// <summary>
         /// Make function to every element in given list
@@ -20,12 +20,13 @@ namespace StructureFunctions
             {
                 throw new ArgumentNullException();
             }
+            var newList = new List<int>();
 
             for (var i = 0; i < list.Count; ++i)
             {
-                list[i] = transformation(list[i]);
+                newList.Add(transformation(list[i]));
             }
-            return list;
+            return newList;
         }
 
         /// <summary>
