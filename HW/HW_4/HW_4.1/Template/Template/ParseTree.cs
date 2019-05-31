@@ -42,8 +42,6 @@ namespace Structures
                 /// <summary>
                 /// Constructor for the structure
                 /// </summary>
-                /// <param name="type"></param>
-                /// <param name="number"></param>
                 public Token(TokenType type = TokenType.NUM, int number = 0)
                 {
                     Type = type;
@@ -56,28 +54,25 @@ namespace Structures
                 /// <returns>String representation of operation or number</returns>
                 public override string ToString()
                 {
-                    if (Type == TokenType.NUM)
+                    switch (Type)
                     {
-                        return $"{Number}";
-                    }
-                    else
-                    {
-                        if (Type == TokenType.OP_SUM)
-                        {
+                        case TokenType.NUM:
+                            return $"{Number}";
+
+                        case TokenType.OP_SUM:
                             return "+";
-                        }
-                        else if (Type == TokenType.OP_SUB)
-                        {
+
+                        case TokenType.OP_SUB:
                             return "-";
-                        }
-                        else if (Type == TokenType.OP_MUL)
-                        {
+
+                        case TokenType.OP_MUL:
                             return "*";
-                        }
-                        else
-                        {
+
+                        case TokenType.OP_DIV:
                             return "/";
-                        }
+
+                        default:
+                            throw new DataMisalignedException();
                     }
                 }
             }
@@ -130,7 +125,6 @@ namespace Structures
             /// <returns>The created Node</returns>
             public static Node MakeNode(Node parent, string expression, ref int expressionCounter)
             {
-                Node newNode;
                 Token newToken;
 
                 var ch = ReadAndCheckChar(expression, expressionCounter, '(');
@@ -159,7 +153,7 @@ namespace Structures
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                newNode = new Node(newToken, parent);
+                var newNode = new Node(newToken, parent);
 
                 ch = ReadAndCheckChar(expression, expressionCounter, ' ');
                 ++expressionCounter;
