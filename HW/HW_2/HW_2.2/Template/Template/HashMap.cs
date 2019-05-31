@@ -13,6 +13,11 @@ namespace Structures
         private LinkedList[] map;
 
         /// <summary>
+        /// Amount of elements
+        /// </summary>
+        public int Count {get; protected set;}
+
+        /// <summary>
         /// Get hashcode by value
         /// </summary>
         /// <param name="value">The given value</param>
@@ -45,13 +50,7 @@ namespace Structures
         /// </summary>
         private void MaybeResize()
         {
-            int elementsNumber = 0;
-            foreach (var i in map)
-            {
-                elementsNumber += i.Count;
-            }
-
-            if (elementsNumber / map.Length >= 2)
+            if (Count / map.Length >= 2)
             {
                 Resize();
             }
@@ -65,6 +64,7 @@ namespace Structures
         {
             int key = GetHash(value, map.Length);
             map[key].Add(value, 0);
+            ++Count;
             MaybeResize();
         }
 
@@ -81,6 +81,7 @@ namespace Structures
                 if (map[key].GetNthValue(i) == value)
                 {
                     map[key].Delete(i);
+                    --Count;
                     return;
                 }
             }
