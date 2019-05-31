@@ -36,6 +36,32 @@ namespace Tests
             map.Add(3);
             map.Add(1);
             map.Add(2);
+
+            map.Add(0);
+            map.Add(4);
+            map.Add(3);
+            map.Add(1);
+            map.Add(2);
+            map.Add(0);
+            map.Add(4);
+            map.Add(3);
+            map.Add(1);
+            map.Add(2);
+            map.Add(0);
+            map.Add(4);
+            map.Add(3);
+            map.Add(1);
+            map.Add(2);
+            map.Add(0);
+            map.Add(4);
+            map.Add(3);
+            map.Add(1);
+            map.Add(2);
+            map.Add(0);
+            map.Add(4);
+            map.Add(3);
+            map.Add(1);
+            map.Add(2);
         }
 
         /// <summary>

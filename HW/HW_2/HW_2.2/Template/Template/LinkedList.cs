@@ -26,6 +26,7 @@ namespace Structures
         /// The first element
         /// </summary>
         private ListElement head = null;
+
         /// <summary>
         /// Number of element in list
         /// </summary>
@@ -50,6 +51,7 @@ namespace Structures
                 prev.Next = newElement;
             }
         }
+
         /// <summary>
         /// Add new element in list
         /// </summary>
@@ -97,6 +99,7 @@ namespace Structures
                 prev.Next = prev.Next.Next;
             }
         }
+
         /// <summary>
         /// Delete element in list
         /// </summary>
@@ -127,17 +130,12 @@ namespace Structures
         /// <summary>
         /// Check if list is empty
         /// </summary>
-        /// <returns></returns>
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
+        public bool IsEmpty() => Count == 0;
 
         /// <summary>
         /// Get value of n'th list element
         /// </summary>
         /// <param name="index">Index of the element value to be gotten</param>
-        /// <returns></returns>
         public int GetNthValue(int index)
         {
             if (index < 0 || index >= Count)

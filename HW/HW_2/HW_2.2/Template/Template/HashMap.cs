@@ -16,10 +16,45 @@ namespace Structures
         /// Get hashcode by value
         /// </summary>
         /// <param name="value">The given value</param>
-        /// <returns></returns>
-        private int GetHash(int value)
+        private int GetHash(int value, int cellNumbers) => Math.Abs(value) % cellNumbers;
+
+        /// <summary>
+        /// Resize hashTable
+        /// </summary>
+        private void Resize()
         {
-            return Math.Abs(value) % map.Length;
+            var newMap = new LinkedList[map.Length * 2];
+            for (var i = 0; i < newMap.Length; ++i)
+            {
+                newMap[i] = new LinkedList();
+            }
+
+            foreach (var i in map)
+            {
+                for (var j = 0; j < i.Count; ++j)
+                {
+                    int key = GetHash(i.GetNthValue(j), newMap.Length);
+                    newMap[key].Add(i.GetNthValue(j), 0);
+                }
+            }
+            map = newMap;
+        }
+
+        /// <summary>
+        /// Check if resize needs
+        /// </summary>
+        private void MbResize()
+        {
+            int elementsNumber = 0;
+            foreach(var i in map)
+            {
+                elementsNumber += i.Count;
+            }
+
+            if (elementsNumber / map.Length >= 2)
+            {
+                Resize();
+            }
         }
 
         /// <summary>
@@ -28,8 +63,9 @@ namespace Structures
         /// <param name="value">The adding value</param>
         public void Add(int value)
         {
-            int key = GetHash(value);
+            int key = GetHash(value, map.Length);
             map[key].Add(value, 0);
+            MbResize();
         }
 
         /// <summary>
@@ -38,7 +74,7 @@ namespace Structures
         /// <param name="value">The deleting value</param>
         public void Delete(int value)
         {
-            int key = GetHash(value);
+            int key = GetHash(value, map.Length);
             int cellLength = map[key].Count;
             for (var i = 0; i < cellLength; ++i)
             {
@@ -55,10 +91,9 @@ namespace Structures
         /// Check if a value exist in hashtable
         /// </summary>
         /// <param name="value">The given value</param>
-        /// <returns></returns>
         public bool Exist(int value)
         {
-            int key = GetHash(value);
+            int key = GetHash(value, map.Length);
             int cellLength = map[key].Count;
             for (var i = 0; i < cellLength; ++i)
             {
