@@ -8,76 +8,227 @@ namespace Structures
     public class ParseTree
     {
         /// <summary>
-        /// The element of the tree
+        /// The base of Node class
         /// </summary>
-        private class Node
+        private abstract class Node
         {
             /// <summary>
-            /// The type of argument: number or operation (which)
+            /// The parent of Node
             /// </summary>
-            private enum TokenType
+            public Node Parent { get; set; }
+
+            /// <summary>
+            /// The left son of Node
+            /// </summary>
+            public Node Left { get; set; }
+
+            /// <summary>
+            /// The right son of Node
+            /// </summary>
+            public Node Right { get; set; }
+
+
+            /// <summary>
+            /// Constuctor for the structure
+            /// </summary>
+            /// <param name="parent">The parent of Node</param>
+            /// <param name="left">The left son of Node</param>
+            /// <param name="right">The right son of Node</param>
+            public Node(Node parent = null, Node left = null, Node right = null)
             {
-                 NUM
-                ,OP_SUM
-                ,OP_SUB
-                ,OP_MUL
-                ,OP_DIV,
+                Parent = parent;
+                Left = left;
+                Right = right;
+            }
+
+
+            /// <summary>
+            /// Count Node result
+            /// </summary>
+            /// <returns>The counted result</returns>
+            public abstract int Count();
+
+            /// <summary>
+            /// Print expression
+            /// </summary>
+            /// <returns>The string form of the expression</returns>
+            public abstract string Print();
+
+        }
+
+        /// <summary>
+        /// The specific Node type for operations
+        /// </summary>
+        private abstract class OperationNode : Node
+        {
+            /// <summary>
+            /// Make the Node type operation with 2 arguments
+            /// </summary>
+            protected abstract int MakeOperation(int value1, int value2);
+
+            /// <summary>
+            /// Count the Node result
+            /// </summary>
+            public override int Count()
+            {
+                if (Left == null || Right == null)
+                {
+                    throw new DataMisalignedException();
+                }
+
+                return MakeOperation(Left.Count(), Right.Count());
             }
 
             /// <summary>
-            /// The argument of Node: number or operation
+            /// Get the Node type sign of operation
             /// </summary>
-            private class Token
+            protected abstract string GetSignOfOperation();
+
+            /// <summary>
+            /// Print the Node operation
+            /// </summary>
+            public override string Print()
             {
-                /// <summary>
-                /// The type of argument
-                /// </summary>
-                public TokenType Type { get; protected set; }
-
-                /// <summary>
-                /// The number value if its type is the same
-                /// </summary>
-                public int Number { get; protected set; }
-
-                /// <summary>
-                /// Constructor for the structure
-                /// </summary>
-                public Token(TokenType type = TokenType.NUM, int number = 0)
+                if (Left == null || Right == null)
                 {
-                    Type = type;
-                    Number = number;
+                    throw new DataMisalignedException();
                 }
 
-                /// <summary>
-                /// To string conventer
-                /// </summary>
-                /// <returns>String representation of operation or number</returns>
-                public override string ToString()
-                {
-                    switch (Type)
-                    {
-                        case TokenType.NUM:
-                            return $"{Number}";
-
-                        case TokenType.OP_SUM:
-                            return "+";
-
-                        case TokenType.OP_SUB:
-                            return "-";
-
-                        case TokenType.OP_MUL:
-                            return "*";
-
-                        case TokenType.OP_DIV:
-                            return "/";
-
-                        default:
-                            throw new DataMisalignedException();
-                    }
-                }
+                return $"({GetSignOfOperation()} {Left.Print()} {Right.Print()})";
             }
 
+            /// <summary>
+            /// Basic Node constructor
+            /// </summary>
+            public OperationNode(Node parent, Node left, Node right) : base(parent, left, right) { }
 
+        }
+
+
+        /// <summary>
+        /// The Node type for numbers
+        /// </summary>
+        private class NumberNode : Node
+        {
+            /// <summary>
+            /// The storing value
+            /// </summary>
+            private int value;
+
+            /// <summary>
+            /// Cound the Node type
+            /// </summary>
+            public override int Count() => value;
+
+            /// <summary>
+            /// Print the Node type
+            /// </summary>
+            public override string Print() => $"{value}";
+
+            /// <summary>
+            /// Constructor for the Node type
+            /// </summary>
+            /// <param name="value">The given value</param>
+            public NumberNode(int value, Node parent = null, Node left = null, Node right = null) : base(parent, left, right)
+            {
+                this.value = value;
+            }
+
+        }
+
+        /// <summary>
+        /// The Node type for + operation
+        /// </summary>
+        private class OperationNodePlus : OperationNode
+        {
+            /// <summary>
+            /// The Node type counting operation
+            /// </summary>
+            protected override int MakeOperation(int value1, int value2) => value1 + value2;
+
+            /// <summary>
+            /// The Node type operation sign
+            /// </summary>
+            protected override string GetSignOfOperation() => "+";
+
+            /// <summary>
+            /// Basic OperationNode constructor
+            /// </summary>
+            public OperationNodePlus(Node parent = null, Node left = null, Node right = null) : base(parent, left, right) { }
+
+        }
+
+        /// <summary>
+        /// The Node type for - operation
+        /// </summary>
+        private class OperationNodeMinus : OperationNode
+        {
+            /// <summary>
+            /// The Node type counting operation
+            /// </summary>
+            protected override int MakeOperation(int value1, int value2) => value1 - value2;
+
+            /// <summary>
+            /// The Node type operation sign
+            /// </summary>
+            protected override string GetSignOfOperation() => "-";
+
+            /// <summary>
+            /// Basic OperationNode constructor
+            /// </summary>
+            public OperationNodeMinus(Node parent = null, Node left = null, Node right = null) : base(parent, left, right) { }
+
+        }
+
+        /// <summary>
+        /// The Node type for * operation
+        /// </summary>
+        private class OperationNodeMultiply : OperationNode
+        {
+            /// <summary>
+            /// The Node type counting operation
+            /// </summary>
+            protected override int MakeOperation(int value1, int value2) => value1 * value2;
+
+            /// <summary>
+            /// The Node type operation sign
+            /// </summary>
+            protected override string GetSignOfOperation() => "*";
+
+            /// <summary>
+            /// Basic OperationNode constructor
+            /// </summary>
+            public OperationNodeMultiply(Node parent = null, Node left = null, Node right = null) : base(parent, left, right) { }
+
+        }
+
+        /// <summary>
+        /// The Node type for / operation
+        /// </summary>
+        private class OperationNodeDivide : OperationNode
+        {
+            /// <summary>
+            /// The Node type counting operation
+            /// </summary>
+            protected override int MakeOperation(int value1, int value2) => value1 / value2;
+
+            /// <summary>
+            /// The Node type operation sign
+            /// </summary>
+            protected override string GetSignOfOperation() => "/";
+
+            /// <summary>
+            /// Basic OperationNode constructor
+            /// </summary>
+            public OperationNodeDivide(Node parent = null, Node left = null, Node right = null) : base(parent, left, right) { }
+
+        }
+
+        /// <summary>
+        /// Constructing ParseTree functions consister
+        /// </summary>
+        private static class ConstructTreeFuncton
+        {
             /// <summary>
             /// Read number from current string position
             /// </summary>
@@ -115,18 +266,16 @@ namespace Structures
                 }
                 return ch;
             }
-
+            
             /// <summary>
-            /// Create new Node element reading input string-expression
+            /// Make new Node by parsing input expression
             /// </summary>
-            /// <param name="parent">The parent of creating Node</param>
-            /// <param name="expression">The string Node to be created from</param>
-            /// <param name="expressionCounter">The string counter</param>
-            /// <returns>The created Node</returns>
+            /// <param name="parent">The parent of new Node</param>
+            /// <param name="expression">The parsing expression</param>
+            /// <param name="expressionCounter">The expression counter</param>
             public static Node MakeNode(Node parent, string expression, ref int expressionCounter)
             {
-                Token newToken;
-
+                Node newNode;
                 var ch = ReadAndCheckChar(expression, expressionCounter, '(');
                 ++expressionCounter;
 
@@ -135,25 +284,24 @@ namespace Structures
                 switch (ch)
                 {
                     case '+':
-                        newToken = new Token(TokenType.OP_SUM);
+                        newNode = new OperationNodePlus(parent);
                         break;
 
                     case '-':
-                        newToken = new Token(TokenType.OP_SUB);
+                        newNode = new OperationNodeMinus(parent);
                         break;
 
                     case '*':
-                        newToken = new Token(TokenType.OP_MUL);
+                        newNode = new OperationNodeMultiply(parent);
                         break;
 
                     case '/':
-                        newToken = new Token(TokenType.OP_DIV);
+                        newNode = new OperationNodeDivide(parent);
                         break;
 
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                var newNode = new Node(newToken, parent);
 
                 ch = ReadAndCheckChar(expression, expressionCounter, ' ');
                 ++expressionCounter;
@@ -163,8 +311,7 @@ namespace Structures
                 ch = ReadAndCheckChar(expression, expressionCounter, null);
                 if (Char.IsDigit(ch))
                 {
-                    var newNumberToken = new Token(TokenType.NUM, ReadNumberFromString(expression, ref expressionCounter));
-                    newNode.Left = new Node(newNumberToken, parent, null, null);
+                    newNode.Left = new NumberNode(ReadNumberFromString(expression, ref expressionCounter), parent);
                 }
                 else
                 {
@@ -177,8 +324,7 @@ namespace Structures
                 ch = ReadAndCheckChar(expression, expressionCounter, null);
                 if (Char.IsDigit(ch))
                 {
-                    var newNumberToken = new Token(TokenType.NUM, ReadNumberFromString(expression, ref expressionCounter));
-                    newNode.Right = new Node(newNumberToken, parent, null, null);
+                    newNode.Right = new NumberNode(ReadNumberFromString(expression, ref expressionCounter), parent);
                 }
                 else
                 {
@@ -191,125 +337,14 @@ namespace Structures
                 return newNode;
             }
 
-
-            /// <summary>
-            /// The parent of Node
-            /// </summary>
-            public Node Parent { get; set; }
-
-            /// <summary>
-            /// The left son of Node
-            /// </summary>
-            public Node Left { get; set; }
-
-            /// <summary>
-            /// The right son of Node
-            /// </summary>
-            public Node Right { get; set; }
-
-            /// <summary>
-            /// The value of Node
-            /// </summary>
-            private Token value;
-
-            /// <summary>
-            /// Constuctor for the structure
-            /// </summary>
-            /// <param name="value">The Node value</param>
-            /// <param name="parent">The parent of Node</param>
-            /// <param name="left">The left son of Node</param>
-            /// <param name="right">The right son of Node</param>
-            private Node(Token value, Node parent = null, Node left = null, Node right = null)
-            {
-                this.value = value;
-                Parent = parent;
-                Left = left;
-                Right = right;
-            }
-
-
-            /// <summary>
-            /// Count given operation type with given arguments
-            /// </summary>
-            /// <param name="value1">The 1st value</param>
-            /// <param name="value2">The 2nd value</param>
-            /// <param name="type">The type of operation</param>
-            /// <returns>The counted result</returns>
-            private int MakeOperation(int value1, int value2, TokenType type)
-            {
-                if (type == TokenType.NUM)
-                {
-                    throw new InvalidOperationException();
-                }
-
-                if (type == TokenType.OP_SUM)
-                {
-                    return value1 + value2;
-                }
-                else if (type == TokenType.OP_SUB)
-                {
-                    return value1 - value2;
-                }
-                else if (type == TokenType.OP_MUL)
-                {
-                    return value1 * value2;
-                }
-                else
-                {
-                    if (value2 == 0)
-                    {
-                        throw new DivideByZeroException();
-                    }
-                    return value1 / value2;
-                }
-            }
-
-            /// <summary>
-            /// Count expression
-            /// </summary>
-            /// <returns>The counted result</returns>
-            public int Count()
-            {
-                if (value.Type != TokenType.NUM)
-                {
-                    if (Left == null || Right == null)
-                    {
-                        throw new DataMisalignedException();
-                    }
-
-                    return MakeOperation(Left.Count(), Right.Count(), value.Type); 
-                }
-                else
-                {
-                    return value.Number;
-                }
-            }
-
-            /// <summary>
-            /// Print expression
-            /// </summary>
-            /// <returns>The string form of the expression</returns>
-            public string Print()
-            {
-                string resultString = "";
-                if (value.Type == TokenType.NUM)
-                {
-                    resultString += $"{value.Number}";
-                }
-                else
-                {
-                    resultString += $"({value.ToString()} {Left.Print()} {Right.Print()})";
-                }
-                return resultString;
-            }
-            
         }
+
 
         /// <summary>
         /// The root of the tree
         /// </summary>
         private Node head = null;
-        
+
         /// <summary>
         /// Set new expression
         /// </summary>
@@ -322,7 +357,7 @@ namespace Structures
             }
 
             int expressionCounter = 0;
-            head = Node.MakeNode(head, expression, ref expressionCounter);
+            head = ConstructTreeFuncton.MakeNode(head, expression, ref expressionCounter);
         }
 
         /// <summary>
@@ -331,6 +366,11 @@ namespace Structures
         /// <returns>The string form of the expression tree</returns>
         public string PrintExpression()
         {
+            if (head == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             return head.Print();
         }
 
@@ -340,6 +380,11 @@ namespace Structures
         /// <returns>The counter result</returns>
         public int Count()
         {
+            if (head == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             return head.Count();
         }
 
