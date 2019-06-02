@@ -11,6 +11,21 @@ namespace UnitTests
     public class TestUniqueList
     {
         /// <summary>
+        /// The checking class example
+        /// </summary>
+        UniqueList list;
+
+        /// <summary>
+        /// Set up test environment
+        /// </summary>
+        [TestInitialize]
+        public void SetUp()
+        {
+            list = new UniqueList();
+        }
+
+
+        /// <summary>
         /// Add some predefined values
         /// </summary>
         /// <param name="list">The list values to be added</param>
@@ -23,6 +38,7 @@ namespace UnitTests
             list.Add(7);
             list.Add(-10);
         }
+        
 
         /// <summary>
         /// Test Add method
@@ -30,8 +46,6 @@ namespace UnitTests
         [TestMethod]
         public void TestAddMethod()
         {
-            var list = new UniqueList();
-
             list.Add(0);
             list.Add(1);
             list.Add(10);
@@ -41,20 +55,37 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Test Remove method
+        /// Test Delete method
         /// </summary>
         [TestMethod]
-        public void TestRemoveMethod()
+        public void TestDeleteMethod()
         {
-            var list = new UniqueList();
             AddSomeValues(list);
 
-            list.Remove(0);
-            list.Remove(1);
-            list.Remove(10);
-            list.Remove(-8);
-            list.Remove(7);
-            list.Remove(-10);
+            list.Delete(0);
+            list.Delete(1);
+            list.Delete(10);
+            list.Delete(-8);
+            list.Delete(7);
+            list.Delete(-10);
+        }
+
+        /// <summary>
+        /// Test SetNthValue method
+        /// </summary>
+        [TestMethod]
+        public void TestSetNthValueMethod()
+        {
+            AddSomeValues(list);
+
+            list.SetNthValue(-100, 0);
+            Assert.AreEqual(list.GetNthValue(0), -100);
+            list.SetNthValue(100, 5);
+            Assert.AreEqual(list.GetNthValue(5), 100);
+            list.SetNthValue(200, 2);
+            Assert.AreEqual(list.GetNthValue(2), 200);
+            list.SetNthValue(1, 4);
+            Assert.AreEqual(list.GetNthValue(4), 1);
         }
 
         /// <summary>
@@ -63,10 +94,8 @@ namespace UnitTests
         [TestMethod]
         public void TestExceptions()
         {
-            var list = new UniqueList();
-            
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(0));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(1));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(0));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(1));
 
 
             AddSomeValues(list);
@@ -77,19 +106,21 @@ namespace UnitTests
             Assert.ThrowsException<TwiceArgumentAddingException>(() => list.Add(7));
             Assert.ThrowsException<TwiceArgumentAddingException>(() => list.Add(-10));
 
+            Assert.ThrowsException<TwiceArgumentAddingException>(() => list.SetNthValue(-10, 3));
+            Assert.ThrowsException<TwiceArgumentAddingException>(() => list.SetNthValue(0, 0));
 
-            list.Remove(0);
-            list.Remove(1);
-            list.Remove(10);
-            list.Remove(-8);
-            list.Remove(7);
-            list.Remove(-10);
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(0));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(1));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(10));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(-8));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(7));
-            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Remove(-10));
+            list.Delete(0);
+            list.Delete(1);
+            list.Delete(10);
+            list.Delete(-8);
+            list.Delete(7);
+            list.Delete(-10);
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(0));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(1));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(10));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(-8));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(7));
+            Assert.ThrowsException<MissingArgumentRemovingException>(() => list.Delete(-10));
         }
 
     }
