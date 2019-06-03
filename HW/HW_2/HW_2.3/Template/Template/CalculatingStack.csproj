@@ -44,7 +44,8 @@
     <Compile Include="IADSStack.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stack.cs" />
+    <Compile Include="StackByArray.cs" />
+    <Compile Include="StackByList.cs" />
     <Compile Include="StackCalculator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,6 +11,28 @@ namespace Tests
     public class TestStackInterfaceImplementations
     {
         /// <summary>
+        /// Variable for StackByList
+        /// </summary>
+        IADSStack stack1 = null;
+
+        /// <summary>
+        /// Variable for StackByArray
+        /// </summary>
+        IADSStack stack2 = null;
+
+
+        /// <summary>
+        /// Set up data before every test
+        /// </summary>
+        [TestInitialize]
+        public void SetUp()
+        {
+            stack1 = new StackByList();
+            stack2 = new StackByArray();
+        }
+
+
+        /// <summary>
         /// Push some values to stack
         /// </summary>
         /// <param name="stack">The given stack</param>
@@ -28,9 +50,6 @@ namespace Tests
         [TestMethod]
         public void TestPushMethod()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             stack1.Push(1);
             stack1.Push(2);
             stack1.Push(3);
@@ -48,9 +67,6 @@ namespace Tests
         [TestMethod]
         public void TestPopMethod()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             PushSomeValues(stack1);
             PushSomeValues(stack2);
 
@@ -71,9 +87,6 @@ namespace Tests
         [TestMethod]
         public void TestPeekMethod()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             PushSomeValues(stack1);
             PushSomeValues(stack2);
 
@@ -96,9 +109,6 @@ namespace Tests
         [TestMethod]
         public void TestIsEmptyMethod()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             Assert.IsTrue(stack1.IsEmpty());
             stack1.Push(1);
             Assert.IsFalse(stack1.IsEmpty());
@@ -130,9 +140,6 @@ namespace Tests
         [TestMethod]
         public void TestCountProperty()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             int[] results = { 4, 3, 4, 3, 1, 0, 1, 2, 0 };
             int resultCounter = 0;
 
@@ -200,9 +207,6 @@ namespace Tests
         [TestMethod]
         public void TestExceptions()
         {
-            IADSStack stack1 = new StackByList();
-            IADSStack stack2 = new StackByArray();
-
             Assert.ThrowsException<InvalidOperationException>(() => stack1.Pop());
             Assert.ThrowsException<InvalidOperationException>(() => stack1.Peek());
 

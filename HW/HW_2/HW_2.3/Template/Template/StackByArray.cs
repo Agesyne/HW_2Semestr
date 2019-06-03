@@ -1,76 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CalculatingStack
 {
-    /// <summary>
-    /// Stack by list
-    /// </summary>
-    public class StackByList : IADSStack
-    {
-        /// <summary>
-        /// The stack storage
-        /// </summary>
-        private List<int> stackList = new List<int>();
-
-        /// <summary>
-        /// The property - number of elements in stack
-        /// </summary>
-        public int Count
-        {
-            get
-            {
-                return stackList.Count;
-            }
-        }
-
-        /// <summary>
-        /// Add element to top of the stack
-        /// </summary>
-        /// <param name="value">The adding value</param>
-        public void Push(int value)
-        {
-            stackList.Insert(0, value);
-        }
-
-        /// <summary>
-        /// Get top stack element and delete it
-        /// </summary>
-        /// <returns></returns>
-        public int Pop()
-        {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException();
-            }
-            int result = stackList[0];
-            stackList.RemoveAt(0);
-            return result;
-        }
-
-        /// <summary>
-        /// Get top stack element
-        /// </summary>
-        /// <returns></returns>
-        public int Peek()
-        {
-            if (IsEmpty())
-            {
-                throw new InvalidOperationException();
-            }
-            return stackList[0];
-        }
-
-        /// <summary>
-        /// Check if stack is empty
-        /// </summary>
-        /// <returns></returns>
-        public bool IsEmpty()
-        {
-            return stackList.Count == 0;
-        }
-    }
-
     /// <summary>
     /// Stack by array
     /// </summary>
@@ -86,6 +17,7 @@ namespace CalculatingStack
         /// </summary>
         public int Count { get; protected set; } = 0;
 
+
         /// <summary>
         /// Increase array length 2 times
         /// </summary>
@@ -98,6 +30,7 @@ namespace CalculatingStack
             }
             stackArray = newStackArray;
         }
+        
         /// <summary>
         /// Add element to top of the stack
         /// </summary>
@@ -112,10 +45,10 @@ namespace CalculatingStack
             ++Count;
         }
 
+
         /// <summary>
         /// Get top stack element and delete it
         /// </summary>
-        /// <returns></returns>
         public int Pop()
         {
             if (IsEmpty())
@@ -129,7 +62,6 @@ namespace CalculatingStack
         /// <summary>
         /// Get top stack element
         /// </summary>
-        /// <returns></returns>
         public int Peek()
         {
             if (IsEmpty())
@@ -142,10 +74,8 @@ namespace CalculatingStack
         /// <summary>
         /// Check if stack is empty
         /// </summary>
-        /// <returns></returns>
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
+        public bool IsEmpty() => Count == 0;
+
     }
+
 }

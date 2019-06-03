@@ -12,7 +12,6 @@ namespace CalculatingStack
         /// </summary>
         /// <param name="expression">The given postfix expression</param>
         /// <param name="stack">The using type of stack</param>
-        /// <returns></returns>
         public static int CalculatePostfixExpression(string expression, IADSStack stack)
         {
             if (expression == null || stack == null)
@@ -21,7 +20,7 @@ namespace CalculatingStack
             }
 
             foreach (var i in expression)
-	        {
+            {
                 if (Char.IsWhiteSpace(i))
                 {
                     continue;
