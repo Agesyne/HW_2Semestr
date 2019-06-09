@@ -13,12 +13,12 @@ namespace Tests
         /// <summary>
         /// Variable for StackByList
         /// </summary>
-        IADSStack stack1 = null;
+        private IADSStack stack1 = null;
 
         /// <summary>
         /// Variable for StackByArray
         /// </summary>
-        IADSStack stack2 = null;
+        private IADSStack stack2 = null;
 
 
         /// <summary>
@@ -50,15 +50,12 @@ namespace Tests
         [TestMethod]
         public void TestPushMethod()
         {
-            stack1.Push(1);
-            stack1.Push(2);
-            stack1.Push(3);
-            stack1.Push(5);
-
-            stack2.Push(1);
-            stack2.Push(2);
-            stack2.Push(3);
-            stack2.Push(5);
+            int[] values = { 1, 2, 3, 5 };
+            foreach (var i in values)
+            {
+                stack1.Push(i);
+                stack2.Push(i);
+            }
         }
 
         /// <summary>
@@ -69,14 +66,12 @@ namespace Tests
         {
             PushSomeValues(stack1);
             PushSomeValues(stack2);
+            Assert.AreEqual(stack1.Count, stack2.Count);
 
             int[] results = { 5, 3, 2, 1 };
             for (var i = 0; i < stack1.Count; ++i)
             {
-                Assert.AreEqual(stack1.Pop(), results[i]);
-            }
-            for (var i = 0; i < stack2.Count; ++i)
-            {
+                Assert.AreEqual(results[i], stack1.Pop());
                 Assert.AreEqual(results[i], stack2.Pop());
             }
         }
@@ -89,15 +84,13 @@ namespace Tests
         {
             PushSomeValues(stack1);
             PushSomeValues(stack2);
+            Assert.AreEqual(stack1.Count, stack2.Count);
 
             int[] results = { 5, 3, 2, 1 };
             for (var i = 0; i < stack1.Count; ++i)
             {
                 Assert.AreEqual(results[i], stack1.Peek());
                 stack1.Pop();
-            }
-            for (var i = 0; i < stack2.Count; ++i)
-            {
                 Assert.AreEqual(results[i], stack2.Peek());
                 stack2.Pop();
             }

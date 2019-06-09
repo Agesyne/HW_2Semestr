@@ -16,10 +16,7 @@ namespace CalculatingStack
         /// <summary>
         /// The property - number of elements in stack
         /// </summary>
-        public int Count
-        {
-            get => stackList.Count;
-        }
+        public int Count => stackList.Count;
 
         /// <summary>
         /// Add element to top of the stack
