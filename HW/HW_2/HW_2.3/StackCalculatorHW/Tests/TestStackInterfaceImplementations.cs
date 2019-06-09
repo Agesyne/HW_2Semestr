@@ -77,7 +77,7 @@ namespace Tests
             }
             for (var i = 0; i < stack2.Count; ++i)
             {
-                Assert.AreEqual(stack2.Pop(), results[i]);
+                Assert.AreEqual(results[i], stack2.Pop());
             }
         }
 
@@ -93,12 +93,12 @@ namespace Tests
             int[] results = { 5, 3, 2, 1 };
             for (var i = 0; i < stack1.Count; ++i)
             {
-                Assert.AreEqual(stack1.Peek(), results[i]);
+                Assert.AreEqual(results[i], stack1.Peek());
                 stack1.Pop();
             }
             for (var i = 0; i < stack2.Count; ++i)
             {
-                Assert.AreEqual(stack2.Peek(), results[i]);
+                Assert.AreEqual(results[i], stack2.Peek());
                 stack2.Pop();
             }
         }
@@ -145,60 +145,60 @@ namespace Tests
 
             PushSomeValues(stack1);
             PushSomeValues(stack2);
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Pop();
             stack2.Pop();
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Push(4);
             stack2.Push(4);
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Pop();
             stack2.Pop();
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Pop();
             stack1.Pop();
             stack2.Pop();
             stack2.Pop();
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Pop();
             stack2.Pop();
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Push(1);
             stack2.Push(1);
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
             ++resultCounter;
 
             stack1.Push(2);
             stack2.Push(2);
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count); ;
             ++resultCounter;
 
             stack1.Pop();
             stack1.Pop();
             stack2.Pop();
             stack2.Pop();
-            Assert.AreEqual(stack1.Count, results[resultCounter]);
-            Assert.AreEqual(stack2.Count, results[resultCounter]);
+            Assert.AreEqual(results[resultCounter], stack1.Count);
+            Assert.AreEqual(results[resultCounter], stack2.Count);
         }
 
         /// <summary>

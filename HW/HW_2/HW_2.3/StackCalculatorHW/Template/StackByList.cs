@@ -18,10 +18,7 @@ namespace CalculatingStack
         /// </summary>
         public int Count
         {
-            get
-            {
-                return stackList.Count;
-            }
+            get => stackList.Count;
         }
 
         /// <summary>
