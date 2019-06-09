@@ -1,10 +1,10 @@
 image: Visual Studio 2017
 
 before_build:
-  - nuget restore Template/Template.sln
+  - nuget restore HW/HW_7/HW_7.1/Calculator/Calculator.sln
 
 build:
-  project: Template/Template.sln
+  project: HW/HW_7/HW_7.1/Calculator/Calculator.sln
 
 test_script:
-  - dotnet test Template/Template.sln
+  - dotnet test HW/HW_7/HW_7.1/Calculator/Calculator.sln
