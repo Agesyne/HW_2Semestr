@@ -296,13 +296,96 @@ namespace GenericList
 
 
         /// <summary>
-        /// Enumerator for list
+        /// Enumerator for GerericList
         /// </summary>
-        public IEnumerator<T> GetEnumerator() => new GenericListIEnumerator<T>(this);
+        private class GenericListIEnumerator : IEnumerator<T>
+        {
+            /// <summary>
+            /// The list class
+            /// </summary>
+            private GenericList<T> list = null;
+
+            /// <summary>
+            /// The current position
+            /// </summary>
+            private int position = -1;
+
+            /// <summary>
+            /// Current list element
+            /// </summary>
+            private ListElement currentElement = null;
+
+            /// <summary>
+            /// Constructor: fill list
+            /// </summary>
+            public GenericListIEnumerator(GenericList<T> list)
+            {
+                this.list = list;
+            }
+
+            /// <summary>
+            /// Current element
+            /// </summary>
+            public T Current
+            {
+                get
+                {
+                    if (position == -1 || position >= list.Count)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    return currentElement.Value;
+                }
+                set
+                {
+                    if (position == -1 || position >= list.Count)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    currentElement.Value = value;
+                }
+            }
+
+            /// <summary>
+            /// ...Something just to be
+            /// </summary>
+            object IEnumerator.Current => throw new NotImplementedException();
+
+            /// <summary>
+            /// Make step to next element
+            /// </summary>
+            /// <returns></returns>
+            public bool MoveNext()
+            {
+                if (position < list.Count - 1)
+                {
+                    ++position;
+                    currentElement = currentElement.Next;
+                    return true;
+                }
+                currentElement = null;
+                return false;
+            }
+
+            /// <summary>
+            /// Stop walking throw
+            /// </summary>
+            public void Reset() => position = -1;
+
+            /// <summary>
+            /// ...Something just to be
+            /// </summary>
+            public void Dispose() { }
+        }
 
         /// <summary>
         /// Enumerator for list
         /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() => new GenericListIEnumerator<T>(this);
+        public IEnumerator<T> GetEnumerator() => new GenericListIEnumerator(this);
+
+        /// <summary>
+        /// Enumerator for list
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator() => new GenericListIEnumerator(this);
     }
 }
