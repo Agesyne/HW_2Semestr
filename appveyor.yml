@@ -7,4 +7,4 @@ build:
   project: HW\HW_6\HW_6.2\EventLoopGame/EventLoopGame.sln
 
 test_script:
-  - dotnet HW\HW_6\HW_6.2\EventLoopGame/EventLoopGame.sln
+  - dotnet test HW\HW_6\HW_6.2\EventLoopGame/EventLoopGame.sln
