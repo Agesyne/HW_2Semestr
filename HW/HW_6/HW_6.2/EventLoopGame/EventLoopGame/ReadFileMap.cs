@@ -16,11 +16,9 @@ namespace EventLoopGame
         /// <returns>The map</returns>
         public static string[] ReadMap(string fileName)
         {
-            StreamReader fileReader = null;
             string[] arrayMap = null;
-            try
+            using (var fileReader = new StreamReader(fileName))
             {
-                fileReader = new StreamReader(fileName);
                 var listMap = new List<string>();
                 
                 string line = fileReader.ReadLine();
@@ -32,14 +30,6 @@ namespace EventLoopGame
 
                 arrayMap = new string[listMap.Count];
                 listMap.CopyTo(arrayMap);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                fileReader.Close();
             }
 
             return arrayMap;
