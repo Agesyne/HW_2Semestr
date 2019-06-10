@@ -86,7 +86,7 @@ namespace Structures
         /// </summary>
         /// <param name="value">The value of new element</param>
         /// <param name="index">Index of the place element to be added</param>
-        public void Add(int value, int index)
+        public virtual void Add(int value, int index)
         {
             AddElementArterGiven(value, FindElement(index));
             ++Count;
@@ -117,7 +117,7 @@ namespace Structures
         /// Delete element in list
         /// </summary>
         /// <param name="index">Index of the place element to be deleted</param>
-        public void Delete(int index)
+        public virtual void Delete(int index)
         {
             DeleteElementAfterGiven(FindElement(index));
             --Count;
@@ -153,7 +153,7 @@ namespace Structures
         /// </summary>
         /// <param name="value">The new value</param>
         /// <param name="index">Index of the element value to be setted</param>
-        public void SetNthValue(int value, int index)
+        public virtual void SetNthValue(int value, int index)
         {
             var currentElement = FindElement(index);
             if (currentElement == null)

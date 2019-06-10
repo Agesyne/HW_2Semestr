@@ -35,7 +35,7 @@ namespace Structures
         /// Add element
         /// </summary>
         /// <param name="value">The adding value</param>
-        public void Add(int value, int index = 0)
+        public override void Add(int value, int index = 0)
         {
             if (index < 0 || index > Count)
             {
@@ -55,7 +55,7 @@ namespace Structures
         /// Remove existing element
         /// </summary>
         /// <param name="value">The removing value</param>
-        public void Delete(int value)
+        public override void Delete(int value)
         {
             var deletingElementIndex = FindValue(value);
             if (deletingElementIndex == -1)
@@ -72,7 +72,7 @@ namespace Structures
         /// </summary>
         /// <param name="value">The new value</param>
         /// <param name="index">Index of the element value to be setted</param>
-        public void SetNthValue(int value, int index)
+        public override void SetNthValue(int value, int index)
         {
             var foundElementIndex = FindValue(value);
             if (foundElementIndex != -1 && foundElementIndex != index)
