@@ -1,10 +1,10 @@
 image: Visual Studio 2017
 
 before_build:
-  - nuget restore Template/Template.sln
+  - nuget restore HW/HW_8/HW_8.1/GenericList/GenericList.sln
 
 build:
-  project: Template/Template.sln
+  project: HW/HW_8/HW_8.1/GenericList/GenericList.sln
 
 test_script:
-  - dotnet test Template/Template.sln
+  - dotnet test HW/HW_8/HW_8.1/GenericList/GenericList.sln
