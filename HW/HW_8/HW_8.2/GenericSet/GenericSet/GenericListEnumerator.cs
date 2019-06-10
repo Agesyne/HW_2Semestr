@@ -7,12 +7,12 @@ namespace GenericSet
     /// <summary>
     /// Enumerator for GerericSet
     /// </summary>
-    public class GenericSetIEnumerator<T> : IEnumerator<T>
+    public class GenericSetEnumerator<T> : IEnumerator<T>
     {
         /// <summary>
         /// The set class
         /// </summary>
-        GenericSet<T> set = null;
+        private GenericSet<T> set = null;
 
         /// <summary>
         /// The current position
@@ -23,7 +23,7 @@ namespace GenericSet
         /// <summary>
         /// Constructor: fill set
         /// </summary>
-        public GenericSetIEnumerator(GenericSet<T> set)
+        public GenericSetEnumerator(GenericSet<T> set)
         {
             this.set = set;
         }

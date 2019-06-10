@@ -135,7 +135,7 @@ namespace GenericSet
         public bool Contains(T value)
         {
             var current = FindPlace(value);
-            return (current != null && comparer.Compare(value, current.Value) == 0) ?  true :  false;
+            return current != null && comparer.Compare(value, current.Value) == 0;
         }
 
         /// <summary>
@@ -177,24 +177,7 @@ namespace GenericSet
         /// <param name="value">The adding value</param>
         void ICollection<T>.Add(T value)
         {
-            var current = FindPlace(value);
-            if (current == null)
-            {
-                root = new Node(value, current);
-                ++Count;
-                return;
-            }
-
-            if (comparer.Compare(value, current.Value) == 1)
-            {
-                current.Right = new Node(value, current);
-                ++Count;
-            }
-            else if(comparer.Compare(value, current.Value) == -1)
-            {
-                current.Left = new Node(value, current);
-                ++Count;
-            }
+            Add(value);
         }
 
 
@@ -361,6 +344,10 @@ namespace GenericSet
         /// </summary>
         public void UnionWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             foreach (var i in other)
             {
                 if (!Contains(i))
@@ -375,6 +362,10 @@ namespace GenericSet
         /// </summary>
         public void IntersectWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             var setValues = new T[Count];
             CopyTo(setValues);
             foreach (var i in setValues)
@@ -391,6 +382,10 @@ namespace GenericSet
         /// </summary>
         public void ExceptWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             foreach (var i in other)
             {
                 if (Contains(i))
@@ -405,6 +400,10 @@ namespace GenericSet
         /// </summary>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             var setValues = new T[Count];
             CopyTo(setValues);
 
@@ -433,6 +432,10 @@ namespace GenericSet
         /// </summary>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             foreach (var i in this)
             {
                 if (!other.Contains(i))
@@ -448,6 +451,10 @@ namespace GenericSet
         /// </summary>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             foreach (var i in other)
             {
                 if (!Contains(i))
@@ -463,6 +470,10 @@ namespace GenericSet
         /// </summary>
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             return IsSupersetOf(other) && Count > other.Count();
         }
 
@@ -471,6 +482,10 @@ namespace GenericSet
         /// </summary>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             return IsSubsetOf(other) && Count < other.Count();
         }
 
@@ -480,6 +495,10 @@ namespace GenericSet
         /// </summary>
         public bool Overlaps(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (Count < other.Count())
             {
                 foreach (var i in this)
@@ -509,6 +528,10 @@ namespace GenericSet
         /// </summary>
         public bool SetEquals(IEnumerable<T> other)
         {
+            if (other == null)
+            {
+                throw new ArgumentNullException();
+            }
             foreach (var i in this)
             {
                 if (!other.Contains(i))
@@ -523,12 +546,12 @@ namespace GenericSet
         /// <summary>
         /// Let use foreach with the ADS
         /// </summary>
-        public IEnumerator<T> GetEnumerator() => new GenericSetIEnumerator<T>(this);
+        public IEnumerator<T> GetEnumerator() => new GenericSetEnumerator<T>(this);
 
         /// <summary>
         /// Let use foreach with the ADS
         /// </summary>
-        IEnumerator IEnumerable.GetEnumerator() => new GenericSetIEnumerator<T>(this);
+        IEnumerator IEnumerable.GetEnumerator() => new GenericSetEnumerator<T>(this);
 
     }
 }
